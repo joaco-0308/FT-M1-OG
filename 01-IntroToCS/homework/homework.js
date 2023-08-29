@@ -1,23 +1,23 @@
 "use strict";
 
 function BinarioADecimal(num) {
-  let contador = 0; 
+  let suma = 0; 
   let array = num.split("").reverse(); 
 
   for (let i = 0; i < array.length; i++) { 
-    contador += array[i] * 2 ** i; 
+    suma += array[i] * 2 ** i; 
   }
-  return contador; 
+  return suma; 
 }
 
 function DecimalABinario(num) {
-let contador = []; 
+let binario = []; 
 
 while(num > 0){ 
-   contador = num % 2 + contador; 
+  binario = num % 2 + binario; 
    num = Math.floor(num / 2); 
 }
-return contador; 
+return binario; 
 }
 
 module.exports = {
