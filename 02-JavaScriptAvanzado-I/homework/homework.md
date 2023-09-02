@@ -16,12 +16,12 @@ var c = function (a, b, c) {
    console.log(a); //8
    var f = function (a, b, c) {
       b = a;
-      console.log(b);//8
+      console.log(b); //8
       b = c;
       var x = 5;
    };
    f(a, b, c);
-   console.log(b);//9
+   console.log(b); //9
 };
 c(8, 9, 10);
 console.log(b); //10
@@ -29,11 +29,11 @@ console.log(x); //1
 ```
 
 ```javascript
-console.log(bar); //undefined
-console.log(baz); //nada
+console.log(bar); //undefined.
+console.log(baz); //error.
 foo();
 function foo() {
-   console.log('Hola!'); //nada
+   console.log('Hola!'); //No va a hacer nada.
 }
 var bar = 1;
 baz = 2;
@@ -44,7 +44,7 @@ var instructor = 'Tony';
 if (true) {
    var instructor = 'Franco';
 }
-console.log(instructor); //"Franco".
+console.log(instructor); // "Franco".
 ```
 
 ```javascript
@@ -69,7 +69,7 @@ if (true) {
    console.log(pm); //"Reverse Flash".
 }
 console.log(instructor); //"The Flash".
-console.log(pm); //"Franco".
+console.log(pm); //"Frnaco".
 ```
 
 ### Coerción de Datos
@@ -83,14 +83,14 @@ console.log(pm); //"Franco".
 "$" + 4 + 5 //$45
 "4" - 2 //2
 "4px" - 2 //NaN
-7 / 0 //infinity
-{}[0] //undefined
+7 / 0 //Infinito
+{}[0] //Undefined
 parseInt("09") //9
 5 && 2 //2
 2 && 5 //5
 5 || 0 //5
 0 || 5 //5
-[3]+[3]-[10] //23
+[3]+[3]-[10] //23 
 3>2>1 //false
 [] == ![] //true
 ```
@@ -103,9 +103,8 @@ parseInt("09") //9
 
 ```javascript
 function test() {
-   console.log(a); //undefined
+   console.log(a); //Undefined
    console.log(foo()); //2
-
    var a = 1;
    function foo() {
       return 2;
@@ -147,11 +146,11 @@ var obj = {
    },
 };
 
-console.log(obj.prop.getFullname());// "Aurelio De Rosa"
+console.log(obj.prop.getFullname()); //"Aurelio De Rosa".
 
 var test = obj.prop.getFullname;
 
-console.log(test()); //undefined
+console.log(test()); //undefined.
 ```
 
 ### Event loop
@@ -162,12 +161,12 @@ Considerando el siguiente código, ¿Cuál sería el orden en el que se muestra 
 function printing() {
    console.log(1); //1
    setTimeout(function () {
-      console.log(2); //4
+      console.log(2); //2
    }, 1000);
    setTimeout(function () {
-      console.log(3); //3
+      console.log(3); //2
    }, 0);
-   console.log(4); //2
+   console.log(4); //3
 }
 
 printing();

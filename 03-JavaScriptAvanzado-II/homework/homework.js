@@ -43,10 +43,9 @@ el mismo argumento, no sea necesario volver a invocar a cb, porque el resultado 
 
 function cacheFunction(cb) {
   let cache = [];
-
   return function (arg) {
     if (cache.hasOwnProperty(arg)) {
-      return (cache[arg]);
+      return (cache[arg] = cache[arg]);
     } else {
       return (cache[arg] = cb(arg));
     }
@@ -74,7 +73,8 @@ function getNombre() {
 /*
   Ejercicio 3
   IMPORTANTE: no modificar el código de arriba (variables instructor y alumno, y función getNombre)
-  Usando el método bind() guardar, en las dos variables declaradas a continuación, dos funciones que actúen como getNombre pero retornen el nombre del instructor y del alumno, respectivamente.
+  Usando el método bind() guardar, en las dos variables declaradas a continuación, dos funciones que actúen como
+  getNombre pero retornen el nombre del instructor y del alumno, respectivamente.
 */
 
 let getNombreInstructor = getNombre.bind(instructor);
@@ -93,7 +93,7 @@ function crearCadena(delimitadorIzquierda, delimitadorDerecha, cadena) {
   return delimitadorIzquierda + cadena + delimitadorDerecha;
 }
 
-let textoAsteriscos = crearCadena.bind(this, "*", "*");
+let textoAsteriscos = crearCadena.bind(this,"*", "*");
 let textoGuiones = crearCadena.bind(this, "-", "-");
 let textoUnderscore = crearCadena.bind(this, "_", "_");
 

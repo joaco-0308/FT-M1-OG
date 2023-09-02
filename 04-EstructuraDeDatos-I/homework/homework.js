@@ -24,9 +24,9 @@ function nFactorial(n) {
 }
 
 function nFibonacci(n) {
-  if (n <= 0) return 0;
-  else if (n === 1) return 1;
-  return nFibonacci(n - 1) + nFibonacci(n - 2);
+  if(n === 1) return 1;
+  else if(n < 0) return 0;
+  return nFibonacci(n - 1) + nFibonacci(n-2);
 }
 
 /*
@@ -38,23 +38,21 @@ Implementar la clase Queue, sabiendo que es una estructura de tipo FIFO, donde e
 Pueden utilizar class o función constructora.
 */
 
-class Queue {
-  constructor() {
-    this.array = [];
-  }
-  enqueue(n) {
-    this.array.push(n);
-  }
-  dequeue() {
-    return this.array.shift();
-  }
-  size() {
-    return this.array.length;
-  }
+function Queue() {
+  this.array = [];
 }
 
+Queue.prototype.enqueue = function(x){
+  return this.array.push(x);
+};
 
+Queue.prototype.dequeue = function(){
+  return this.array.shift();
+};
 
+Queue.prototype.size = function(){
+  return this.array.length;
+};
 
 /*⚠️ No modificar nada debajo de esta línea ⚠️*/
 module.exports = {
