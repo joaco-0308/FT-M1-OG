@@ -15,69 +15,69 @@ Implementar la clase LinkedList, definiendo los siguientes métodos:
   En caso de que la búsqueda no arroje resultados, search debe retornar null.
 */
 function LinkedList() {
-  this.head = null;
+  this.head = null; //Seria nuestra locomotora.
 }
 
 function Node(value) {
-  this.value = value;
-  this.next = null;
+  //Seria el vagon de la locomotora.
+  this.value = value; //Valor del vagon.
+  this.next = null; //Enganche del vagon.
 }
 
 LinkedList.prototype.add = function (value) {
-  let node = new Node(value);
-  let current = this.head;
+  let node = new Node(value); //Se crea un nuevo nodo.
+  let current = this.head; //Se crea un variable con el valor de this.head == null.
 
-  if (!current) {
-    this.head = node;
-    return node;
+  if (!current) this.head = node; //Si current es null --> this.head empieza a mirar al nodo.
+
+  else {
+    while (current.next) { //Bucle que se rrecorre siempre y cuando tengamos un current.next.
+      current = current.next;  //Hacemos que current se mueva un vagon mas adelante.
+    }
+
+    return (current.next = node); //Asignamos el nodo nuevo al final de la lista.
   }
-
-  while (current.next) {
-    current = current.next;
-  }
-
-  return (current.next = node);
 };
 
 LinkedList.prototype.remove = function () {
-  let current = this.head;
+  let current = this.head; //Se crea un variable con el valor de this.head
 
-  if (!current) return null;
-  else if (!this.head.next) {
+  if (!current) return null; //Si current es null devolvemos null(Eso es en el caso de que no haya ningun nodo)
+  else if (!current.next) {  //Si current.next es null --> eliminamos el unico nodo que existe :)
     let memoria = this.head.value;
     this.head = null;
     return memoria;
   }
 
-  while (current.next.next !== null) {
-    current = current.next;
+  while (current.next.next) { //Voy recorriendo el tren siempre parado en el peunltimo nodo hasta que sea null.
+    current = current.next; //Avanzo un nodo si tenemos un valor
   }
 
-  let memoria = current.next.value;
-  current.next = null;
-  return memoria;
+  let memoria = current.next.value; //Variable para acceder al valor del ultimo nodo.
+  current.next = null; //Borro el ultimo nodo igualandolo a null
+  return memoria; // retornamos el valor del nodo
 };
 
 LinkedList.prototype.search = function (arg) {
   if (!this.head) return null;
-  let current = this.head; 
+  let current = this.head; //Se crea un variable con el valor de this.head
 
   if (typeof arg === "function") {
-    while (current !== null) {
-      if (arg(current.value) === true) {
-        return current.value;
+    while (current) { //Se entra en el bucle si hay un nodo.
+      if (arg(current.value) === true) { //Esto es en caso de que se envie un valor -->
+        return current.value;            //(Sirve para rrecorerlo y encontrar ese valor)
       }
-      current = current.next;
+      current = current.next;  //Avanzo un nodo para volver a buscar el valor en esa pocision nueva.
     }
   } else {
-    while (current !== null) {
-      if (current.value === arg) {
-        return current.value;
+    while (current) { //Se entra en el bucle si hay un nodo.
+      if (current.value === arg) { //aca buscamos cuyo valor que se pasado por el parametro del Callback
+        return arg;
       }
-      current = current.next;
-    }
+      current = current.next;  //Avanzo un nodo para volver a buscar el valor(pasado por el parametro del Callback) -->
+    }                          //en esa pocision nueva.
   }
-  return null;
+  return null; //Si no se encuentra se devuelve null :(
 };
 
 /* EJERCICIO 2
@@ -94,39 +94,39 @@ La clase debe tener los siguientes métodos:
 
 Ejemplo: supongamos que quiero guardar {instructora: 'Ani'} en la tabla. Primero puedo chequear, con hasKey, si ya hay algo en la tabla con el nombre 'instructora'; luego, invocando set('instructora', 'Ani'), se almacenará el par clave-valor en un bucket específico (determinado al hashear la clave)
 */
-function HashTable() {
-  this.table = [];
-  this.numBuckets = 35;
+function HashTable() { 
+  this.table = [];             
+  this.numBuckets = 35;      //Limite de cuadritos de nuestra tabla.
 }
 
 HashTable.prototype.hash = function (key) {
-  let hash = 0;
+  let hash = 0; //inicializamos una variable que mepieza en 0.
 
-  for (let i = 0; i < key.length; i++) {
-    hash += key.charCodeAt(i);
+  for (let i = 0; i < key.length; i++) { //Recorremos letra por letra a key
+    hash += key.charCodeAt(i); //pasamos los valores a hasky.
   }
-  return hash % this.numBuckets;
+  return hash % this.numBuckets; //dividimos para que el valor de hash entre en el limite de bukets(35).
 };
 
 HashTable.prototype.set = function (key, value) {
-  if (typeof key !== "string") throw TypeError("Keys must be strings");
-  let index = this.hash(key);
-  if (!this.table[index]) {
-    this.table[index] = {};
+  if (typeof key !== "string") throw TypeError("Keys must be strings"); // Si no es un string tira error :(
+  let index = this.hash(key); //inicilailizamos una varible con el casillero(key).
+  if (!this.table[index]) { //Si en mi tabla no tenemos nada en el index -->
+    this.table[index] = {}; //Creamos un objeto.
   }
-  this.table[index][key] = value;
+  this.table[index][key] = value; //Creamos en el objeto una key con un value.
 };
 
 HashTable.prototype.get = function (key) {
-  let index = this.hash(key);
+  let index = this.hash(key);//inicilizamos un variable que nos dice donde va a estar hash.
 
-  return this.table[index][key];
+  return this.table[index][key]; //Y nos da el valor dentro de esa posicion(bucket).
 };
 
 HashTable.prototype.hasKey = function (key) {
-  let index = this.hash(key); 
+  let index = this.hash(key); //inicilizamos un variable que nos dice donde va a estar hash.
 
-  return this.table[index].hasOwnProperty(key);
+  return this.table[index].hasOwnProperty(key); //Buscamos si hay algun valor almacenado en la tabla.
 };
 
 // No modifiquen nada debajo de esta linea
