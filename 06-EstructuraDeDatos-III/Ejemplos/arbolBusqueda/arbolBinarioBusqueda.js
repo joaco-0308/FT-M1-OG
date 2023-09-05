@@ -26,7 +26,7 @@ Node.prototype.search = function(s){
 Node.prototype.isBalanced = function(){
 	if(!this.right && !this.left) return true
 	if(abs(this.balanceFactor())>1){
-		return false
+		return false1
 	}
 	if(!this.right){
 		return this.left.isBalanced();
