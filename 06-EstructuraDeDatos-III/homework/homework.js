@@ -26,7 +26,6 @@ BinarySearchTree.prototype.insert = function (value) {
     } else {
       //Si no existe un nodo en la izquierda --> Creamos un nuevo arbol.
       this.left = new BinarySearchTree(value);
-      return value;
     }
   } else {
     //Es mayor o igual
@@ -36,7 +35,6 @@ BinarySearchTree.prototype.insert = function (value) {
     } else {
       //Si no existe un nodo en la derecha --> Creamos un nuevo arbol.
       this.right = new BinarySearchTree(value);
-      return value;
     }
   }
 };
@@ -90,17 +88,16 @@ BinarySearchTree.prototype.depthFirstForEach = function (cb, parametro) {
   }
 };
 //- breadthFirstForEach: recorre el árbol siguiendo el orden breadth first (BFS)
-BinarySearchTree.prototype.breadthFirstForEach = function (cb, value = []) {
-  if (this.left) value.push(this.left); //Comprobamos si hay un nodo hijo izquierdo y lo agegamos a la cola.
+BinarySearchTree.prototype.breadthFirstForEach = function (cb, array = []) { //(cb, array = []) se agrega un valor por defecto
+if(this.left) array.push(this.left);
 
-  if (this.right) value.push(this.right); //Comprobamos si hay un nodo hijo derecho y lo agregamos a la cola
+if(this.right) array.push(this.right);
 
-  cb(this.value); //aplicamos la devolucion al valor del nodo actual
+cb(this.value);
 
-  if (value.length > 0) {
-    //Verificamos si todavia hay nodos en la cola
-    value.shift().breadthFirstForEach(cb, value); //Extra el primer elemento de la cola y aplicamos la recursion.
-  }
+if(array.length > 0){
+   array.shift().breadthFirstForEach(cb, array);
+}
 };
 
 
